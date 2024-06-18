@@ -1,12 +1,16 @@
 package com.datatable;
 
+import com.datatable.framework.core.annotation.StartUp;
+import com.datatable.framework.core.vertx.VertxApplication;
+
 /**
- * 表达式解析器
+ * 启动类
  *
  * @author xhz
  */
+@StartUp(scanBasePackages = "com.datatable")
 public class Main {
     public static void main(String[] args) {
-        System.out.println("Hello world!");
+        VertxApplication.run(Main.class);
     }
 }
