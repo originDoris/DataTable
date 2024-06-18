@@ -3,7 +3,7 @@ package com.datatable.framework.core.web.core.inquirer;
 import com.datatable.framework.core.annotation.Wall;
 import com.datatable.framework.core.constants.ErrorInfoConstant;
 import com.datatable.framework.core.enums.ErrorCodeEnum;
-import com.datatable.framework.core.exception.datatableException;
+import com.datatable.framework.core.exception.DataTableException;
 import com.datatable.framework.core.funcation.CubeFn;
 import com.datatable.framework.core.options.transformer.CliffTransformer;
 import com.datatable.framework.core.options.transformer.Transformer;
@@ -94,14 +94,14 @@ public class WallInquirer implements Inquirer<Set<Cliff>> {
                 }).subscribe(hashs::add).dispose();
 
         CubeFn.outError(LOGGER, hashs.size() != wallClses.size(),
-                datatableException.class, ErrorCodeEnum.WALL_DUPLICATED_ERROR,
+                DataTableException.class, ErrorCodeEnum.WALL_DUPLICATED_ERROR,
                 MessageFormat.format(ErrorInfoConstant.WALL_DUPLICATED_ERROR, wallClses.stream().map(Class::getName).collect(Collectors.toSet())));
 
         final JsonObject config = cliffConfigVisitor.getConfig(KEY);
 
         for (final String key : keysRef.keySet()) {
             CubeFn.outError(LOGGER,null == config || !config.containsKey(key),
-                    datatableException.class, ErrorCodeEnum.WALL_KEY_MISSING_ERROR,
+                    DataTableException.class, ErrorCodeEnum.WALL_KEY_MISSING_ERROR,
                     MessageFormat.format(ErrorInfoConstant.WALL_KEY_MISSING_ERROR, key, keysRef.get(key)));
 
         }

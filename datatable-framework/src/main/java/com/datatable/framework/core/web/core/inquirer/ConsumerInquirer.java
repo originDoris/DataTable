@@ -5,7 +5,7 @@ import com.datatable.framework.core.annotation.Consumer;
 import com.datatable.framework.core.constants.ErrorInfoConstant;
 import com.datatable.framework.core.constants.MessageConstant;
 import com.datatable.framework.core.enums.ErrorCodeEnum;
-import com.datatable.framework.core.exception.datatableException;
+import com.datatable.framework.core.exception.DataTableException;
 import com.datatable.framework.core.funcation.CubeFn;
 import io.reactivex.rxjava3.core.Observable;
 import io.vertx.core.eventbus.Message;
@@ -46,10 +46,10 @@ public class ConsumerInquirer implements Inquirer<Set<Class<?>>> {
                     final Class<?> parameterTypes = method.getParameterTypes()[0];
                     if (Message.class.isAssignableFrom(parameterTypes)) {
                         CubeFn.outError(LOGGER, void.class != returnType && Void.class != returnType,
-                                datatableException.class, ErrorCodeEnum.ADDRESS_METHOD_ERROR, MessageFormat.format(ErrorInfoConstant.ADDRESS_METHOD_NOT_VOID_ERROR, method.getName()));
+                                DataTableException.class, ErrorCodeEnum.ADDRESS_METHOD_ERROR, MessageFormat.format(ErrorInfoConstant.ADDRESS_METHOD_NOT_VOID_ERROR, method.getName()));
                     } else {
                         CubeFn.outError(LOGGER, void.class == returnType || Void.class == returnType,
-                                datatableException.class, ErrorCodeEnum.ADDRESS_METHOD_ERROR, MessageFormat.format(ErrorInfoConstant.ADDRESS_METHOD_IS_VOID_ERROR, method.getName()));
+                                DataTableException.class, ErrorCodeEnum.ADDRESS_METHOD_ERROR, MessageFormat.format(ErrorInfoConstant.ADDRESS_METHOD_IS_VOID_ERROR, method.getName()));
                     }
                 })
                 .dispose();

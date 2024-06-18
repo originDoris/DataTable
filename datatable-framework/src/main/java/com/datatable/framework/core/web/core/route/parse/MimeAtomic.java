@@ -4,7 +4,7 @@ import com.datatable.framework.core.constants.ErrorInfoConstant;
 import com.datatable.framework.core.constants.MessageConstant;
 import com.datatable.framework.core.enums.ErrorCodeEnum;
 import com.datatable.framework.core.enums.ResolverType;
-import com.datatable.framework.core.exception.datatableException;
+import com.datatable.framework.core.exception.DataTableException;
 import com.datatable.framework.core.exception.WebException;
 import com.datatable.framework.core.funcation.CubeFn;
 import com.datatable.framework.core.utils.reflection.ReflectionUtils;
@@ -53,14 +53,14 @@ public class MimeAtomic<T> implements Atomic<T> {
         final Class<?> resolverCls = ReflectionUtils.invoke(annotation, "resolver");
 
         CubeFn.outError(LOGGER,resolverCls == null,
-                datatableException.class, ErrorCodeEnum.RESOLVER_NULL_ERROR, ErrorInfoConstant.RESOLVER_NULL_ERROR);
+                DataTableException.class, ErrorCodeEnum.RESOLVER_NULL_ERROR, ErrorInfoConstant.RESOLVER_NULL_ERROR);
 
         final String header = context.request().getHeader(HttpHeaders.CONTENT_TYPE);
 
         LOGGER.info(MessageFormat.format(MessageConstant.RESOLVER_CONFIG, resolverCls, header));
 
         CubeFn.outError(LOGGER, !ReflectionUtils.isMatch(resolverCls, Resolver.class),
-                datatableException.class, ErrorCodeEnum.RESOLVER_TYPE_ERROR, MessageFormat.format(ErrorInfoConstant.RESOLVER_NULL_ERROR, resolverCls));
+                DataTableException.class, ErrorCodeEnum.RESOLVER_TYPE_ERROR, MessageFormat.format(ErrorInfoConstant.RESOLVER_NULL_ERROR, resolverCls));
 
         return (Resolver) ReflectionUtils.singleton(resolverCls);
 

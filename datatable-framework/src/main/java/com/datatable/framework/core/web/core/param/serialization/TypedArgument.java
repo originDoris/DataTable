@@ -2,7 +2,7 @@ package com.datatable.framework.core.web.core.param.serialization;
 
 import com.datatable.framework.core.runtime.Envelop;
 import com.datatable.framework.core.utils.FieldUtil;
-import com.datatable.framework.core.web.config.datatableHeader;
+import com.datatable.framework.core.web.config.DataTableHeader;
 import io.vertx.core.json.JsonArray;
 import io.vertx.core.json.JsonObject;
 import io.vertx.rxjava3.core.MultiMap;
@@ -34,9 +34,9 @@ public class TypedArgument {
             returnValue = envelop.getAssist().getUser();
         } else if (is(type, Session.class)) {
             returnValue = envelop.getAssist().getSession();
-        } else if (is(type, datatableHeader.class)) {
+        } else if (is(type, DataTableHeader.class)) {
             MultiMap headers = envelop.getAssist().getHeaders();
-            final datatableHeader header = new datatableHeader();
+            final DataTableHeader header = new DataTableHeader();
             header.fromHeader(headers);
             returnValue = header;
         } else {
@@ -47,10 +47,10 @@ public class TypedArgument {
 
     public static Object analyze(final RoutingContext context, final Class<?> type) {
         Object returnValue = null;
-        if (is(type, datatableHeader.class)) {
+        if (is(type, DataTableHeader.class)) {
             HttpServerRequest request = context.request();
             MultiMap headers = request.headers();
-            final datatableHeader header = new datatableHeader();
+            final DataTableHeader header = new DataTableHeader();
             header.fromHeader(headers);
             returnValue = header;
         } else if (is(type, Session.class)) {

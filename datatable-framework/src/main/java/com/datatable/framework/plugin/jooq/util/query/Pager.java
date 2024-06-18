@@ -1,7 +1,7 @@
 package com.datatable.framework.plugin.jooq.util.query;
 
 import com.datatable.framework.core.enums.ErrorCodeEnum;
-import com.datatable.framework.core.exception.datatableException;
+import com.datatable.framework.core.exception.DataTableException;
 import com.datatable.framework.core.funcation.CubeFn;
 import com.datatable.framework.core.utils.FieldUtil;
 import io.vertx.core.impl.logging.Logger;
@@ -58,18 +58,18 @@ public class Pager implements Serializable {
 
     void ensure(final JsonObject pageJson) {
         CubeFn.outError(LOGGER, null == pageJson,
-                datatableException.class,
+                DataTableException.class,
                 ErrorCodeEnum.JOOQ_QUERY_META_NULL_ERROR);
 
-        CubeFn.outError(LOGGER, !pageJson.containsKey(PAGE), datatableException.class, ErrorCodeEnum.JOOQ_PAGER_INVALID_ERROR);
-        CubeFn.outError(LOGGER, !pageJson.containsKey(SIZE),datatableException.class, ErrorCodeEnum.JOOQ_SIZE_INVALID_ERROR);
+        CubeFn.outError(LOGGER, !pageJson.containsKey(PAGE), DataTableException.class, ErrorCodeEnum.JOOQ_PAGER_INVALID_ERROR);
+        CubeFn.outError(LOGGER, !pageJson.containsKey(SIZE),DataTableException.class, ErrorCodeEnum.JOOQ_SIZE_INVALID_ERROR);
 
         Inquiry.ensureType(pageJson, PAGE, Integer.class, FieldUtil::isInteger, this.getClass());
         Inquiry.ensureType(pageJson, SIZE, Integer.class, FieldUtil::isInteger, this.getClass());
     }
 
     private void init(final Integer page, final Integer size) {
-        CubeFn.outError(LOGGER, 1 > page, datatableException.class, ErrorCodeEnum.JOOQ_PAGER_INVALID_ERROR);
+        CubeFn.outError(LOGGER, 1 > page, DataTableException.class, ErrorCodeEnum.JOOQ_PAGER_INVALID_ERROR);
         this.page = page;
         this.size = 0 < size ? size : 10;
         CubeFn.safeNull(() -> {

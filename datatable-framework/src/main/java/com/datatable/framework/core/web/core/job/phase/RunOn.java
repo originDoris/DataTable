@@ -4,7 +4,7 @@ import com.datatable.framework.core.annotation.BodyParam;
 import com.datatable.framework.core.constants.ErrorInfoConstant;
 import com.datatable.framework.core.constants.MessageConstant;
 import com.datatable.framework.core.enums.ErrorCodeEnum;
-import com.datatable.framework.core.exception.datatableException;
+import com.datatable.framework.core.exception.DataTableException;
 import com.datatable.framework.core.runtime.Envelop;
 import com.datatable.framework.core.utils.AsyncUtils;
 import com.datatable.framework.core.utils.reflection.ReflectionUtils;
@@ -97,7 +97,7 @@ class RunOn {
                 argsList.add(this.buildArgs(parameterType, envelop, mission));
             }
         } else {
-            throw new datatableException(ErrorCodeEnum.PARAM_ERROR_CODE, MessageFormat.format(ErrorInfoConstant.JOB_METHOD_ERROR, this.getClass(), mission.getCode()));
+            throw new DataTableException(ErrorCodeEnum.PARAM_ERROR_CODE, MessageFormat.format(ErrorInfoConstant.JOB_METHOD_ERROR, this.getClass(), mission.getCode()));
         }
         return argsList.toArray();
     }
@@ -122,7 +122,7 @@ class RunOn {
         } else if (Refer.class == clazz) {
             return this.underway;
         } else {
-            throw new datatableException(ErrorCodeEnum.PARAM_ERROR_CODE, MessageFormat.format(ErrorInfoConstant.JOB_METHOD_ERROR, this.getClass(), mission.getCode()));
+            throw new DataTableException(ErrorCodeEnum.PARAM_ERROR_CODE, MessageFormat.format(ErrorInfoConstant.JOB_METHOD_ERROR, this.getClass(), mission.getCode()));
         }
     }
 }

@@ -4,7 +4,7 @@ import com.datatable.framework.core.annotation.Authenticate;
 import com.datatable.framework.core.annotation.Authorize;
 import com.datatable.framework.core.constants.ErrorInfoConstant;
 import com.datatable.framework.core.enums.ErrorCodeEnum;
-import com.datatable.framework.core.exception.datatableException;
+import com.datatable.framework.core.exception.DataTableException;
 import com.datatable.framework.core.funcation.CubeFn;
 import com.datatable.framework.core.utils.reflection.ReflectionUtils;
 import io.vertx.core.impl.logging.Logger;
@@ -37,11 +37,11 @@ public class PhylumAuth {
 
     public PhylumAuth verify() {
         CubeFn.outError(this.logger, this.verifyMethod(this.methods, Authenticate.class),
-                datatableException.class, ErrorCodeEnum.WALL_METHOD_MULTI_ERROR,
+                DataTableException.class, ErrorCodeEnum.WALL_METHOD_MULTI_ERROR,
                 MessageFormat.format(ErrorInfoConstant.WALL_METHOD_MULTI_ERROR, Authenticate.class.getSimpleName(), this.clazz.getName()));
 
         CubeFn.outError(this.logger, this.verifyMethod(this.methods, Authorize.class),
-                datatableException.class, ErrorCodeEnum.WALL_METHOD_MULTI_ERROR,
+                DataTableException.class, ErrorCodeEnum.WALL_METHOD_MULTI_ERROR,
                 MessageFormat.format(ErrorInfoConstant.WALL_METHOD_MULTI_ERROR, Authorize.class.getSimpleName(), this.clazz.getName()));
         return this;
     }

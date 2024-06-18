@@ -2,7 +2,7 @@ package com.datatable.framework.core.web.core.filter;
 
 
 import com.datatable.framework.core.enums.ErrorCodeEnum;
-import com.datatable.framework.core.exception.datatableException;
+import com.datatable.framework.core.exception.DataTableException;
 import com.datatable.framework.core.funcation.CubeFn;
 import io.vertx.core.impl.logging.Logger;
 import io.vertx.core.impl.logging.LoggerFactory;
@@ -56,6 +56,6 @@ public abstract class HttpFilter implements Filter {
     }
 
     public void init() {
-        CubeFn.outError(this.logger,null == this.context, datatableException.class, ErrorCodeEnum.WALL_DUPLICATED_ERROR);
+        CubeFn.outError(this.logger,null == this.context, DataTableException.class, ErrorCodeEnum.WALL_DUPLICATED_ERROR);
     }
 }

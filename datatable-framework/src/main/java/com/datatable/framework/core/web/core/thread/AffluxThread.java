@@ -4,7 +4,7 @@ import com.datatable.framework.core.annotation.Qualifier;
 import com.datatable.framework.core.constants.ErrorInfoConstant;
 import com.datatable.framework.core.constants.MessageConstant;
 import com.datatable.framework.core.enums.ErrorCodeEnum;
-import com.datatable.framework.core.exception.datatableException;
+import com.datatable.framework.core.exception.DataTableException;
 import com.datatable.framework.core.funcation.CubeFn;
 import com.datatable.framework.core.utils.StringUtil;
 import com.datatable.framework.core.utils.reflection.ReflectionUtils;
@@ -98,7 +98,7 @@ public class AffluxThread extends Thread {
         final Annotation annotation = field.getAnnotation(Qualifier.class);
 
         CubeFn.outError(LOGGER, null == annotation,
-                datatableException.class, ErrorCodeEnum.QUALIFIER_MISSED_ERROR,
+                DataTableException.class, ErrorCodeEnum.QUALIFIER_MISSED_ERROR,
                 MessageFormat.format(ErrorInfoConstant.QUALIFIER_MISSED_ERROR, this.getClass(), field.getName(), field.getDeclaringClass().getName()));
 
         final boolean match = instanceCls.stream()
@@ -108,7 +108,7 @@ public class AffluxThread extends Thread {
                 .map(Class::getName).collect(Collectors.toSet());
 
         CubeFn.outError(LOGGER, !match,
-                datatableException.class, ErrorCodeEnum.NAMED_IMPL_ERROR,
+                DataTableException.class, ErrorCodeEnum.NAMED_IMPL_ERROR,
                 MessageFormat.format(ErrorInfoConstant.NAMED_IMPL_ERROR, this.getClass(), names, field.getType().getName())
         );
 

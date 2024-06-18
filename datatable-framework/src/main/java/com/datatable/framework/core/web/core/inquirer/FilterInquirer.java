@@ -4,7 +4,7 @@ import com.datatable.framework.core.annotation.FilterOrder;
 import com.datatable.framework.core.constants.ErrorInfoConstant;
 import com.datatable.framework.core.constants.Orders;
 import com.datatable.framework.core.enums.ErrorCodeEnum;
-import com.datatable.framework.core.exception.datatableException;
+import com.datatable.framework.core.exception.DataTableException;
 import com.datatable.framework.core.funcation.CubeFn;
 import com.datatable.framework.core.utils.reflection.ReflectionUtils;
 import com.datatable.framework.core.web.core.agent.Event;
@@ -48,7 +48,7 @@ public class FilterInquirer implements Inquirer<ConcurrentMap<String, Set<Event>
 
 
     private Class<?> ensure(final Class<?> clazz) {
-        CubeFn.outError(LOGGER, !Filter.class.isAssignableFrom(clazz), datatableException.class,
+        CubeFn.outError(LOGGER, !Filter.class.isAssignableFrom(clazz), DataTableException.class,
                 ErrorCodeEnum.FILTER_SPECIFICATION_ERROR, MessageFormat.format(ErrorInfoConstant.FILTER_SPECIFICATION_ERROR, clazz.getName(), Filter.class.getName()));
         return clazz;
     }
@@ -76,13 +76,13 @@ public class FilterInquirer implements Inquirer<ConcurrentMap<String, Set<Event>
         if (null != annotation) {
             final Integer setted = ReflectionUtils.invoke(annotation, "value");
             CubeFn.outError(LOGGER, setted < 0,
-                    datatableException.class, ErrorCodeEnum.FILTER_ORDER_ERROR, MessageFormat.format(ErrorInfoConstant.FILTER_ORDER_ERROR, clazz.getName()));
+                    DataTableException.class, ErrorCodeEnum.FILTER_ORDER_ERROR, MessageFormat.format(ErrorInfoConstant.FILTER_ORDER_ERROR, clazz.getName()));
             order = order + setted;
         }
         event.setOrder(order);
         final Object proxy = ReflectionUtils.singleton(clazz);
         CubeFn.outError(LOGGER, null == proxy,
-                datatableException.class, ErrorCodeEnum.FILTER_INIT_ERROR, MessageFormat.format(ErrorInfoConstant.FILTER_INIT_ERROR, clazz.getName()));
+                DataTableException.class, ErrorCodeEnum.FILTER_INIT_ERROR, MessageFormat.format(ErrorInfoConstant.FILTER_INIT_ERROR, clazz.getName()));
         event.setProxy(proxy);
         final Method action = this.findMethod(clazz);
         event.setAction(action);

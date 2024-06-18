@@ -5,7 +5,7 @@ import com.datatable.framework.core.annotation.Anno;
 import com.datatable.framework.core.annotation.EndPoint;
 import com.datatable.framework.core.constants.ErrorInfoConstant;
 import com.datatable.framework.core.enums.ErrorCodeEnum;
-import com.datatable.framework.core.exception.datatableException;
+import com.datatable.framework.core.exception.DataTableException;
 import com.datatable.framework.core.exception.EventSourceException;
 import com.datatable.framework.core.funcation.CubeFn;
 import com.datatable.framework.core.web.core.param.resolver.MediaResolver;

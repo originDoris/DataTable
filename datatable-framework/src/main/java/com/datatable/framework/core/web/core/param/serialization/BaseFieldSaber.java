@@ -1,7 +1,7 @@
 package com.datatable.framework.core.web.core.param.serialization;
 
 import com.datatable.framework.core.constants.ErrorInfoConstant;
-import com.datatable.framework.core.exception.datatableException;
+import com.datatable.framework.core.exception.DataTableException;
 import com.datatable.framework.core.funcation.CubeFn;
 import io.vertx.core.impl.logging.Logger;
 import io.vertx.core.impl.logging.LoggerFactory;
@@ -17,7 +17,7 @@ public abstract class BaseFieldSaber implements FieldSerializable {
     void verifyInput(final boolean condition,
                      final Class<?> paramType,
                      final String literal) {
-        CubeFn.outError(getLogger(), condition, datatableException.class,
+        CubeFn.outError(getLogger(), condition, DataTableException.class,
                 MessageFormat.format(ErrorInfoConstant.FIELD_SERIALIZABLE_ERROR, paramType, literal));
     }
 

@@ -2,7 +2,7 @@ package com.datatable.framework.core.web.core.route.axis;
 
 
 import com.datatable.framework.core.constants.Orders;
-import com.datatable.framework.core.runtime.datatableAnno;
+import com.datatable.framework.core.runtime.DataTableAnno;
 import com.datatable.framework.core.web.core.Pool;
 import com.datatable.framework.core.web.core.secure.AuthenticateEndurer;
 import com.datatable.framework.core.web.core.secure.Bolt;
@@ -23,7 +23,7 @@ import java.util.TreeSet;
  */
 public class WallAxis implements Axis<Router> {
 
-    private static final Set<Cliff> WALLS = datatableAnno.getWalls();
+    private static final Set<Cliff> WALLS = DataTableAnno.getWalls();
 
     static {
         WALLS.forEach(wall -> {

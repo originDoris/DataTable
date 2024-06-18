@@ -1,7 +1,7 @@
 package com.datatable.framework.core.web.core.scatter;
 
 import com.datatable.framework.core.enums.ServerType;
-import com.datatable.framework.core.runtime.datatableAnno;
+import com.datatable.framework.core.runtime.DataTableAnno;
 import com.datatable.framework.core.utils.VerticleUtils;
 import com.datatable.framework.core.utils.reflection.ReflectionUtils;
 import com.datatable.framework.core.vertx.VertxApplication;
@@ -49,7 +49,7 @@ public class AgentScatter implements Scatter<Vertx>, Serializable {
         }
 
         Runtime.getRuntime().addShutdownHook(new Thread(() -> {
-            Set<Hook> destroy = datatableAnno.getDestroy();
+            Set<Hook> destroy = DataTableAnno.getDestroy();
             VertxApplication.execHook(destroy);
 
             for (Map.Entry<ServerType, Class<?>> entry : agents.entrySet()) {

@@ -2,7 +2,7 @@ package com.datatable.framework.core.web.core.invoker;
 
 import com.datatable.framework.core.constants.ErrorInfoConstant;
 import com.datatable.framework.core.enums.ErrorCodeEnum;
-import com.datatable.framework.core.exception.datatableException;
+import com.datatable.framework.core.exception.DataTableException;
 import com.datatable.framework.core.funcation.CubeFn;
 import com.datatable.framework.core.runtime.Envelop;
 import com.datatable.framework.core.utils.reflection.ReflectionUtils;
@@ -42,7 +42,7 @@ public class JetSelector {
             }
         }
         CubeFn.outError(LOGGER, null == invoker,
-                datatableException.class,
+                DataTableException.class,
                 ErrorCodeEnum.INVOKER_NULL_ERROR,
                 MessageFormat.format(ErrorInfoConstant.INVOKER_NULL_ERROR, JetSelector.class, returnType, paramCls));
         return invoker;

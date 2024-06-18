@@ -7,7 +7,7 @@ import com.datatable.framework.core.constants.MessageConstant;
 import com.datatable.framework.core.enums.ErrorCodeEnum;
 import com.datatable.framework.core.enums.JobStatus;
 import com.datatable.framework.core.enums.JobType;
-import com.datatable.framework.core.exception.datatableException;
+import com.datatable.framework.core.exception.DataTableException;
 import com.datatable.framework.core.funcation.CubeFn;
 import com.datatable.framework.core.utils.StringUtil;
 import com.datatable.framework.core.utils.jackson.ClassDeserializer;
@@ -101,7 +101,7 @@ public class Mission implements Serializable {
                 .filter(method -> method.isAnnotationPresent(On.class))
                 .findFirst().orElse(null);
 
-        CubeFn.outError(LOGGER, null == this.on, datatableException.class,
+        CubeFn.outError(LOGGER, null == this.on, DataTableException.class,
                 ErrorCodeEnum.JOB_ON_MISSING_ERROR, MessageFormat.format(ErrorInfoConstant.JOB_ON_MISSING_ERROR, clazz.getName()));
 
 

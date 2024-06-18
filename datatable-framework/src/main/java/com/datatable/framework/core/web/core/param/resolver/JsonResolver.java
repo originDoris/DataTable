@@ -1,6 +1,6 @@
 package com.datatable.framework.core.web.core.param.resolver;
 
-import com.datatable.framework.core.runtime.datatableSerializer;
+import com.datatable.framework.core.runtime.DataTableSerializer;
 import com.datatable.framework.core.web.core.param.ParamContainer;
 import io.vertx.core.impl.logging.Logger;
 import io.vertx.core.impl.logging.LoggerFactory;
@@ -26,7 +26,7 @@ public class JsonResolver<T> implements Resolver<T> {
             final T defaultValue = (T) income.getDefaultValue();
             income.setValue(defaultValue);
         } else {
-            final Object result = datatableSerializer.getValue(income.getArgType(), content);
+            final Object result = DataTableSerializer.getValue(income.getArgType(), content);
             if (null != result) {
                 income.setValue((T) result);
             }

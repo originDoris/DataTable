@@ -3,7 +3,7 @@ package com.datatable.framework.plugin.jooq.util.condition;
 import com.datatable.framework.core.constants.ErrorInfoConstant;
 import com.datatable.framework.core.constants.MessageConstant;
 import com.datatable.framework.core.enums.ErrorCodeEnum;
-import com.datatable.framework.core.exception.datatableException;
+import com.datatable.framework.core.exception.DataTableException;
 import com.datatable.framework.core.funcation.CubeFn;
 import com.datatable.framework.core.utils.FieldUtil;
 import com.datatable.framework.plugin.jooq.util.query.Criteria;
@@ -212,7 +212,7 @@ public class JooqCond {
             if (Objects.nonNull(fnAnalyze)) {
                 final Field metaField = fnAnalyze.apply(targetField);
                 CubeFn.outError(LOGGER, Objects.isNull(metaField),
-                        datatableException.class, ErrorCodeEnum.JOOQ_COND_FIELD_ERROR,
+                        DataTableException.class, ErrorCodeEnum.JOOQ_COND_FIELD_ERROR,
                         MessageFormat.format(ErrorInfoConstant.JOOQ_COND_FIELD_ERROR, targetField));
 
 
@@ -222,7 +222,7 @@ public class JooqCond {
 
                 final Clause clause = Clause.get(type);
                 CubeFn.outError(LOGGER, Objects.isNull(clause),
-                        datatableException.class,ErrorCodeEnum.JOOQ_COND_CLAUSE_ERROR,
+                        DataTableException.class,ErrorCodeEnum.JOOQ_COND_CLAUSE_ERROR,
                         MessageFormat.format(ErrorInfoConstant.JOOQ_COND_CLAUSE_ERROR, metaField.getName(), type, targetField));
 
                 item = clause.where(metaField, switchedField, op, value);

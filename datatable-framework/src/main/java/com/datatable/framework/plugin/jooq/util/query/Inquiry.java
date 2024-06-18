@@ -2,7 +2,7 @@ package com.datatable.framework.plugin.jooq.util.query;
 
 import com.datatable.framework.core.constants.ErrorInfoConstant;
 import com.datatable.framework.core.enums.ErrorCodeEnum;
-import com.datatable.framework.core.exception.datatableException;
+import com.datatable.framework.core.exception.DataTableException;
 import com.datatable.framework.core.funcation.CubeFn;
 import io.vertx.core.impl.logging.LoggerFactory;
 import io.vertx.core.json.JsonObject;
@@ -39,7 +39,7 @@ public interface Inquiry {
                 () -> {
                     final Object check = checkJson.getValue(key);
                     CubeFn.outError(LoggerFactory.getLogger(target), !predicate.test(check),
-                            datatableException.class, ErrorCodeEnum.JOOQ_QUERY_KEY_TYPE_ERROR,
+                            DataTableException.class, ErrorCodeEnum.JOOQ_QUERY_KEY_TYPE_ERROR,
                             MessageFormat.format(ErrorInfoConstant.JOOQ_QUERY_KEY_TYPE_ERROR, target,
                                     key, type, check.getClass()));
                 }, LoggerFactory.getLogger(target)), checkJson), target);

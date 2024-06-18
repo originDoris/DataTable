@@ -2,7 +2,7 @@ package com.datatable.framework.plugin.jooq.util.query;
 
 import com.datatable.framework.core.constants.ErrorInfoConstant;
 import com.datatable.framework.core.enums.ErrorCodeEnum;
-import com.datatable.framework.core.exception.datatableException;
+import com.datatable.framework.core.exception.DataTableException;
 import com.datatable.framework.core.funcation.CubeFn;
 import com.google.common.collect.Maps;
 import io.vertx.core.impl.logging.Logger;
@@ -53,7 +53,7 @@ public class QLinear {
             op = Inquiry.Op.EQ;
         }
         CubeFn.outError(LOGGER, !Inquiry.Op.VALUES.contains(op),
-                datatableException.class, ErrorCodeEnum.JOOQ_OP_UN_SUPPORT_ERROR,
+                DataTableException.class, ErrorCodeEnum.JOOQ_OP_UN_SUPPORT_ERROR,
                 MessageFormat.format(ErrorInfoConstant.JOOQ_OP_UN_SUPPORT_ERROR, op));
         final HashMap<String, Object> condition = Maps.newHashMap();
         condition.put(op, value);

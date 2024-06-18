@@ -3,7 +3,7 @@ package com.datatable.framework.core.web.core.route.axis;
 import com.datatable.framework.core.constants.MessageConstant;
 import com.datatable.framework.core.funcation.CubeFn;
 import com.datatable.framework.core.handler.CommonErrorHandler;
-import com.datatable.framework.core.runtime.datatableAnno;
+import com.datatable.framework.core.runtime.DataTableAnno;
 import com.datatable.framework.core.utils.VerifierEventUtil;
 import com.datatable.framework.core.utils.reflection.ReflectionUtils;
 import com.datatable.framework.core.web.core.agent.Event;
@@ -32,7 +32,7 @@ public class EventAxis implements Axis<Router>{
     private static final Logger LOGGER = LoggerFactory.getLogger(EventAxis.class);
 
 
-    private static final Set<Event> EVENTS = datatableAnno.getEvents();
+    private static final Set<Event> EVENTS = DataTableAnno.getEvents();
 
     private transient final ModeSplitter splitter = CubeFn.poolThread(Pool.THREADS, () -> ReflectionUtils.newInstance(ModeSplitter.class));
 

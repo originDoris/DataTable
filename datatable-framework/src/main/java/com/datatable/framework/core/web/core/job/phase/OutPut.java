@@ -2,7 +2,7 @@ package com.datatable.framework.core.web.core.job.phase;
 
 
 import com.datatable.framework.core.constants.MessageConstant;
-import com.datatable.framework.core.exception.datatableException;
+import com.datatable.framework.core.exception.DataTableException;
 import com.datatable.framework.core.runtime.Envelop;
 import com.datatable.framework.core.utils.reflection.ReflectionUtils;
 import com.datatable.framework.core.web.core.worker.Mission;
@@ -51,7 +51,7 @@ class OutPut {
             }
         } else {
             Element.onceLog(mission, () -> LOGGER.info(MessageFormat.format(MessageConstant.PHASE_ERROR, mission.getCode(), envelop.getError().getClass().getName())));
-            final datatableException error = envelop.getError();
+            final DataTableException error = envelop.getError();
             error.printStackTrace();
             return Single.just(envelop);
         }

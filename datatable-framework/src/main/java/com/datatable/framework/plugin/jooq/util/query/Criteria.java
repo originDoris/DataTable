@@ -1,7 +1,7 @@
 package com.datatable.framework.plugin.jooq.util.query;
 
 import com.datatable.framework.core.enums.ErrorCodeEnum;
-import com.datatable.framework.core.exception.datatableException;
+import com.datatable.framework.core.exception.DataTableException;
 import com.datatable.framework.core.funcation.CubeFn;
 import com.datatable.framework.core.utils.FieldUtil;
 import io.vertx.core.impl.logging.Logger;
@@ -25,7 +25,7 @@ public class Criteria implements Serializable {
     private transient QTree tree;
 
     private Criteria(final JsonObject data) {
-        CubeFn.outError(LOGGER, null == data, datatableException.class, ErrorCodeEnum.JOOQ_QUERY_META_NULL_ERROR);
+        CubeFn.outError(LOGGER, null == data, DataTableException.class, ErrorCodeEnum.JOOQ_QUERY_META_NULL_ERROR);
         mode = parseMode(data);
         if (Inquiry.Mode.LINEAR == mode) {
             linear = QLinear.create(data);

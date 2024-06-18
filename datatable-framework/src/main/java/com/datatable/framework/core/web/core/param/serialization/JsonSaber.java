@@ -1,7 +1,7 @@
 package com.datatable.framework.core.web.core.param.serialization;
 
 import com.datatable.framework.core.enums.ErrorCodeEnum;
-import com.datatable.framework.core.exception.datatableException;
+import com.datatable.framework.core.exception.DataTableException;
 import com.datatable.framework.core.funcation.CubeFn;
 import io.vertx.core.json.DecodeException;
 import java.util.function.Function;
@@ -20,7 +20,7 @@ public abstract class JsonSaber extends BaseFieldSaber {
                             try {
                                 return getFun().apply(literal);
                             } catch (final DecodeException ex) {
-                                throw new datatableException(ErrorCodeEnum.PARAM_ERROR_CODE, "字符串必须是标准JSON格式！");
+                                throw new DataTableException(ErrorCodeEnum.PARAM_ERROR_CODE, "字符串必须是标准JSON格式！");
                             }
                         }, () -> null),
                 paramType, literal);

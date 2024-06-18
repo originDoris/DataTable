@@ -3,7 +3,7 @@ package com.datatable.framework.core.web.core.route.axis;
 import com.datatable.framework.core.constants.Orders;
 import com.datatable.framework.core.options.CorsConfigOptions;
 import com.datatable.framework.core.options.HazelcastClusterOptions;
-import com.datatable.framework.core.runtime.datatableConfig;
+import com.datatable.framework.core.runtime.DataTableConfig;
 import com.datatable.framework.core.utils.JsonUtil;
 import com.datatable.framework.core.vertx.VertxLauncher;
 import com.datatable.framework.plugin.annotation.Redis;
@@ -60,22 +60,22 @@ public class RouterAxis implements Axis<Router> {
 
     private void mountSession(final Router router) {
         final SessionStore store;
-        Boolean clusteredSession = datatableConfig.getdatatableOptions().getClusteredSession();
+        Boolean clusteredSession = DataTableConfig.getDataTableOptions().getClusteredSession();
         if (this.vertx.isClustered() && clusteredSession) {
             store = ClusteredSessionStore.create(this.vertx);
         }else {
             store = LocalSessionStore.create(this.vertx);
         }
         SessionHandler sessionHandler = SessionHandler.create(store);
-        if (StringUtils.isNotBlank(datatableConfig.getdatatableOptions().getSessionName())) {
-            sessionHandler.setSessionCookieName(datatableConfig.getdatatableOptions().getSessionName());
+        if (StringUtils.isNotBlank(DataTableConfig.getDataTableOptions().getSessionName())) {
+            sessionHandler.setSessionCookieName(DataTableConfig.getDataTableOptions().getSessionName());
         }
         router.route().order(Orders.SESSION).handler(sessionHandler);
 
     }
 
     private void mountCors(final Router router) {
-        CorsConfigOptions corsConfigOptions = datatableConfig.getCorsConfigOptions();
+        CorsConfigOptions corsConfigOptions = DataTableConfig.getCorsConfigOptions();
         router.route().order(Orders.CORS).handler(CorsHandler.create()
                 .allowCredentials(corsConfigOptions.getCredentials())
                 .allowedHeaders(this.getAllowedHeaders(JsonUtil.toJsonArray(corsConfigOptions.getHeaders())))

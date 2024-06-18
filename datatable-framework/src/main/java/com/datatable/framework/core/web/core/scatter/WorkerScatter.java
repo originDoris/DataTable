@@ -3,13 +3,13 @@ package com.datatable.framework.core.web.core.scatter;
 import com.datatable.framework.core.annotation.Worker;
 import com.datatable.framework.core.enums.MessageModel;
 import com.datatable.framework.core.funcation.CubeFn;
-import com.datatable.framework.core.runtime.datatableAnno;
+import com.datatable.framework.core.runtime.DataTableAnno;
 import com.datatable.framework.core.utils.VerticleUtils;
 import com.datatable.framework.core.utils.reflection.ReflectionUtils;
 import com.datatable.framework.core.web.core.Extractor;
-import com.datatable.framework.core.web.core.job.datatableScheduler;
+import com.datatable.framework.core.web.core.job.DataTableScheduler;
 import com.datatable.framework.core.web.core.worker.WorkerExtractor;
-import com.datatable.framework.core.web.core.worker.datatableHttpWorker;
+import com.datatable.framework.core.web.core.worker.DataTableHttpWorker;
 import io.vertx.core.DeploymentOptions;
 import io.vertx.core.impl.logging.Logger;
 import io.vertx.core.impl.logging.LoggerFactory;
@@ -28,9 +28,9 @@ public class WorkerScatter implements Scatter<Vertx> {
 
     @Override
     public void connect(final Vertx vertx) {
-        final Set<Class<?>> sources = datatableAnno.getWorkers();
-        sources.add(datatableHttpWorker.class);
-        sources.add(datatableScheduler.class);
+        final Set<Class<?>> sources = DataTableAnno.getWorkers();
+        sources.add(DataTableHttpWorker.class);
+        sources.add(DataTableScheduler.class);
 
         final Set<Class<?>> workers = this.getTargets(sources);
         final Extractor<DeploymentOptions> extractor = ReflectionUtils.newInstance(WorkerExtractor.class);

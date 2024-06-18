@@ -3,10 +3,10 @@ package com.datatable.framework.core.web.core.scatter;
 import com.datatable.framework.core.annotation.Plugin;
 import com.datatable.framework.core.constants.ErrorInfoConstant;
 import com.datatable.framework.core.enums.ErrorCodeEnum;
-import com.datatable.framework.core.exception.datatableException;
+import com.datatable.framework.core.exception.DataTableException;
 import com.datatable.framework.core.funcation.CubeFn;
-import com.datatable.framework.core.runtime.datatableAmbient;
-import com.datatable.framework.core.runtime.datatableAnno;
+import com.datatable.framework.core.runtime.DataTableAmbient;
+import com.datatable.framework.core.runtime.DataTableAnno;
 import com.datatable.framework.core.runtime.Runner;
 import com.datatable.framework.core.utils.reflection.ReflectionUtils;
 import com.datatable.framework.core.web.core.di.DiPlugin;
@@ -35,14 +35,14 @@ public class InfixScatter implements Scatter<Vertx> {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(InfixScatter.class);
 
-    private static final Set<Class<?>> PLUGINS = datatableAnno.getTps();
+    private static final Set<Class<?>> PLUGINS = DataTableAnno.getTps();
 
     private static final DiPlugin PLUGIN = DiPlugin.create(InfixScatter.class);
 
     @Override
     @SuppressWarnings("all")
     public void connect(final Vertx vertx) {
-        final ConcurrentMap<String, Class<?>> wholeInjections = datatableAmbient.getInjections();
+        final ConcurrentMap<String, Class<?>> wholeInjections = DataTableAmbient.getInjections();
 
         final ConcurrentMap<Class<? extends Annotation>, Class<?>> injections = CubeFn.reduce(Plugins.INFIX_MAP, wholeInjections);
         // 找到插件并执行其init方法，这里主要处理框架的插件
@@ -50,7 +50,7 @@ public class InfixScatter implements Scatter<Vertx> {
             if (null != item && item.isAnnotationPresent(Plugin.class)) {
                 final Method method = findInit(item);
                 CubeFn.outError(LOGGER,null == method,
-                        datatableException.class, ErrorCodeEnum.PLUGIN_SPECIFICATION_ERROR,
+                        DataTableException.class, ErrorCodeEnum.PLUGIN_SPECIFICATION_ERROR,
                         MessageFormat.format(ErrorInfoConstant.PLUGIN_SPECIFICATION_ERROR, getClass(), item.getName()));
                 CubeFn.safeJvm(() -> method.invoke(null, vertx), LOGGER);
             }
@@ -65,7 +65,7 @@ public class InfixScatter implements Scatter<Vertx> {
                 .subscribe(item -> {
                     final Method method = findInit(item);
                     CubeFn.outError( LOGGER,null == method,
-                            datatableException.class, ErrorCodeEnum.PLUGIN_SPECIFICATION_ERROR,
+                            DataTableException.class, ErrorCodeEnum.PLUGIN_SPECIFICATION_ERROR,
                             MessageFormat.format(ErrorInfoConstant.PLUGIN_SPECIFICATION_ERROR, getClass(), item.getName()));
                     CubeFn.safeJvm(() -> method.invoke(null, vertx), LOGGER);
                 })

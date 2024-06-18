@@ -3,7 +3,7 @@ package com.datatable.framework.core.web.core.deployment;
 import com.datatable.framework.core.annotation.Agent;
 import com.datatable.framework.core.annotation.Worker;
 import com.datatable.framework.core.constants.MessageConstant;
-import com.datatable.framework.core.runtime.datatableAnno;
+import com.datatable.framework.core.runtime.DataTableAnno;
 import com.datatable.framework.core.utils.reflection.ReflectionUtils;
 import io.vertx.core.DeploymentOptions;
 import io.vertx.core.impl.logging.Logger;
@@ -25,7 +25,7 @@ public class DeployRotate implements Rotate{
 
     public static final String HA = "ha";
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(datatableAnno.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(DataTableAnno.class);
 
     @Override
     public DeploymentOptions spinAgent(final Class<?> clazz) {

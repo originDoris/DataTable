@@ -3,7 +3,7 @@ package com.datatable.framework.core.web.core.scatter;
 
 
 import com.datatable.framework.core.funcation.CubeFn;
-import com.datatable.framework.core.runtime.datatableAnno;
+import com.datatable.framework.core.runtime.DataTableAnno;
 import com.datatable.framework.core.runtime.Runner;
 import com.datatable.framework.core.web.core.agent.Event;
 import com.datatable.framework.core.web.core.di.DiScanner;
@@ -21,18 +21,18 @@ public class AffluxScatter implements Scatter<Vertx> {
     public void connect(final Vertx vertx) {
         final DiScanner injector = DiScanner.create(this.getClass());
         // Extract all events.
-        final Set<Event> events = datatableAnno.getEvents();
+        final Set<Event> events = DataTableAnno.getEvents();
         CubeFn.itSet(events, (item, index) -> Runner.run(() -> injector.singleton(item.getProxy()), "event-afflux-" + index));
 
         // Extract all receipts.
-        final Set<Receipt> receipts = datatableAnno.getReceipts();
+        final Set<Receipt> receipts = DataTableAnno.getReceipts();
         CubeFn.itSet(receipts, (item, index) -> Runner.run(() -> injector.singleton(item.getProxy()), "receipt-afflux-" + index));
 
         // Extract non - event/receipts Objects
-        final Set<Class<?>> injects = datatableAnno.getPointer();
+        final Set<Class<?>> injects = DataTableAnno.getPointer();
         CubeFn.itSet(injects, (item, index) -> Runner.run(() -> injector.singleton(item), "injects-afflux-" + index));
 
-        final Set<Class<?>> di = datatableAnno.getDi();
+        final Set<Class<?>> di = DataTableAnno.getDi();
         CubeFn.itSet(di, (item, index) -> Runner.run(() -> injector.singleton(item), "di-afflux-" + index));
     }
 }
