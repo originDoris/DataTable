@@ -1,3 +1,4 @@
 rootProject.name = 'DataTable'
 include 'datatable-framework'
+include 'datatable-core'
 
