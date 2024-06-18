@@ -4,3 +4,5 @@ logs/
 .gradle
 log/
 file-uploads
+/datatable-core/build/
+/datatable-framework/build/
