@@ -1,0 +1,6 @@
+.idea
+build/
+logs/
+.gradle
+log/
+file-uploads

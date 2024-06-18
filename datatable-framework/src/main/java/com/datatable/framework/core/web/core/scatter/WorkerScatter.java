@@ -1,0 +1,73 @@
+package com.datatable.framework.core.web.core.scatter;
+
+import com.datatable.framework.core.annotation.Worker;
+import com.datatable.framework.core.enums.MessageModel;
+import com.datatable.framework.core.funcation.CubeFn;
+import com.datatable.framework.core.runtime.datatableAnno;
+import com.datatable.framework.core.utils.VerticleUtils;
+import com.datatable.framework.core.utils.reflection.ReflectionUtils;
+import com.datatable.framework.core.web.core.Extractor;
+import com.datatable.framework.core.web.core.job.datatableScheduler;
+import com.datatable.framework.core.web.core.worker.WorkerExtractor;
+import com.datatable.framework.core.web.core.worker.datatableHttpWorker;
+import io.vertx.core.DeploymentOptions;
+import io.vertx.core.impl.logging.Logger;
+import io.vertx.core.impl.logging.LoggerFactory;
+import io.vertx.rxjava3.core.Vertx;
+
+import java.util.HashSet;
+import java.util.Set;
+import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.ConcurrentMap;
+
+/**
+ * 扫描并部署Worker节点
+ * @author xhz
+ */
+public class WorkerScatter implements Scatter<Vertx> {
+
+    @Override
+    public void connect(final Vertx vertx) {
+        final Set<Class<?>> sources = datatableAnno.getWorkers();
+        sources.add(datatableHttpWorker.class);
+        sources.add(datatableScheduler.class);
+
+        final Set<Class<?>> workers = this.getTargets(sources);
+        final Extractor<DeploymentOptions> extractor = ReflectionUtils.newInstance(WorkerExtractor.class);
+        final ConcurrentMap<Class<?>, DeploymentOptions> options = new ConcurrentHashMap<>();
+        for (final Class<?> worker : workers) {
+            final DeploymentOptions option = extractor.extract(worker);
+            options.put(worker, option);
+            VerticleUtils.deploy(vertx,worker, option, this.getLogger());
+        }
+
+        Runtime.getRuntime().addShutdownHook(new Thread(() ->
+                CubeFn.itSet(workers, (clazz, index) -> {
+                    final DeploymentOptions opt = options.get(clazz);
+                    VerticleUtils.undeploy(vertx, clazz, opt, this.getLogger());
+                })));
+    }
+
+    private Logger getLogger() {
+        return LoggerFactory.getLogger(this.getClass());
+    }
+
+    private Set<Class<?>> getTargets(final Set<Class<?>> sources) {
+        final Set<Class<?>> workers = new HashSet<>();
+        for (final Class<?> source : sources) {
+            final MessageModel model = ReflectionUtils.invoke(source.getAnnotation(Worker.class), "value");
+            if (this.getModel().contains(model)) {
+                workers.add(source);
+            }
+        }
+        return workers;
+    }
+
+    protected Set<MessageModel> getModel() {
+        return new HashSet<MessageModel>() {{
+                this.add(MessageModel.REQUEST_RESPONSE);
+            }
+        };
+    }
+
+}
