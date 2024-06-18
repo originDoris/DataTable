@@ -2,12 +2,12 @@ server:
   - name: coreHttp
     type: http
     config:
-      port: xxxx
-      host: xxxx
+      port: 18080
+      host: 192.168.0.39
       tcpKeepAlive: true
 inject:
-  jooq: com.datacube.framework.plugin.jooq.JooqInfix
-  redis: com.datacube.framework.plugin.redis.RedisInfix
+  jooq: com.datatable.framework.plugin.jooq.JooqInfix
+#  redis: com.datacube.framework.plugin.redis.RedisInfix
 
 cors:
   methods:
@@ -29,11 +29,11 @@ hazelcast:
   clusterName: datatable
 
 pg:
-  host: xxxxx
-  port: xxxx
-  user: xxxx
-  password: xxxx
-  database: xxxx
+  host: 192.168.0.39
+  port: 5432
+  user: postgres
+  password: '159357'
+  database: data_table
   pool:
     maxSize: 10
 
@@ -44,32 +44,22 @@ datacube:
 jooq:
   provider:
     driverClassName: org.postgresql.Driver
-    username: xxxx
-    password: xxxx
-    hostname: xxxx
-    instance: xxxx
-    jdbcUrl: xxxx
+    username: postgres
+    password: '159357'
+    hostname: 192.168.0.39
+    instance: data_table
+    jdbcUrl: jdbc:postgresql://127.0.0.1:5432/data_table?useSSL=false
     category: POSTGRESQL
-
-redis:
-  # redis://[:password@]host[:port][/db-number]
-  connectionString: xxxx
 
 vertx:
   preferNativeTransport: true
-  tracingOptions:
-    serviceName: datatable
-    senderOptions:
-      senderEndpoint: xxxxxxxx
 
 flyway:
-  url: xxxxx
+  url: jdbc:postgresql://127.0.0.1:5432/data_table?useSSL=false
   user: postgres
-  password: xxxx
-  locations: xxxx
+  password: '159357'
+  locations: classpath:db/migration
   enable: true
   baselineOnMigrate: true
-  table: xxxxx
   baselineVersion: 0
-  validateOnMigrate: false
   cleanDisabled: true
