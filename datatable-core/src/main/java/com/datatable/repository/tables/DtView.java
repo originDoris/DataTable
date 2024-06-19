@@ -4,7 +4,7 @@
 package com.datatable.repository.tables;
 
 
-import com.datatable.framework.plugin.jooq.shared.ObjectToJsonObjectBinding;
+import com.datatable.framework.plugin.jooq.shared.postgres.JSONBToJsonObjectConverter;
 import com.datatable.repository.Indexes;
 import com.datatable.repository.Keys;
 import com.datatable.repository.Public;
@@ -116,7 +116,7 @@ public class DtView extends TableImpl<DtViewRecord> {
     /**
      * The column <code>public.dt_view.view_config</code>. 视图配置
      */
-    public final TableField<DtViewRecord, JsonObject> VIEW_CONFIG = createField(DSL.name("view_config"), SQLDataType.JSONB, this, "视图配置", new ObjectToJsonObjectBinding());
+    public final TableField<DtViewRecord, JsonObject> VIEW_CONFIG = createField(DSL.name("view_config"), SQLDataType.JSONB, this, "视图配置", new JSONBToJsonObjectConverter());
 
     private DtView(Name alias, Table<DtViewRecord> aliased) {
         this(alias, aliased, null);

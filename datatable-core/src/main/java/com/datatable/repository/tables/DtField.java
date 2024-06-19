@@ -4,7 +4,7 @@
 package com.datatable.repository.tables;
 
 
-import com.datatable.framework.plugin.jooq.shared.ObjectToJsonObjectBinding;
+import com.datatable.framework.plugin.jooq.shared.postgres.JSONBToJsonObjectConverter;
 import com.datatable.repository.Indexes;
 import com.datatable.repository.Keys;
 import com.datatable.repository.Public;
@@ -96,7 +96,7 @@ public class DtField extends TableImpl<DtFieldRecord> {
     /**
      * The column <code>public.dt_field.field_property</code>. 字段属性
      */
-    public final TableField<DtFieldRecord, JsonObject> FIELD_PROPERTY = createField(DSL.name("field_property"), SQLDataType.JSONB, this, "字段属性", new ObjectToJsonObjectBinding());
+    public final TableField<DtFieldRecord, JsonObject> FIELD_PROPERTY = createField(DSL.name("field_property"), SQLDataType.JSONB, this, "字段属性", new JSONBToJsonObjectConverter());
 
     /**
      * The column <code>public.dt_field.is_delete</code>. 0 否 1 是

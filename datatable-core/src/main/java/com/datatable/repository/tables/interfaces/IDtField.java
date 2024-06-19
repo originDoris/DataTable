@@ -175,7 +175,7 @@ public interface IDtField extends VertxPojo, Serializable {
                 setOrThrow(this::setFieldName,json::getString,"field_name","java.lang.String");
                 setOrThrow(this::setFieldDesc,json::getString,"field_desc","java.lang.String");
                 setOrThrow(this::setFieldType,json::getString,"field_type","java.lang.String");
-                setOrThrow(this::setFieldProperty,json::getJsonObject,"field_property","io.vertx.core.json.JsonObject");
+                setFieldProperty(com.datatable.repository.tables.converters.Converters.COM_DATATABLE_FRAMEWORK_PLUGIN_JOOQ_SHARED_POSTGRES_JSONBTOJSONOBJECTCONVERTER_INSTANCE.rowConverter().from(json.getJsonObject("field_property")));
                 setOrThrow(this::setIsDelete,key -> {Integer i = json.getInteger(key); return i==null?null:i.shortValue();},"is_delete","java.lang.Short");
                 setOrThrow(this::setTenantId,json::getLong,"tenant_id","java.lang.Long");
                 setOrThrow(this::setAppId,json::getLong,"app_id","java.lang.Long");
@@ -195,7 +195,7 @@ public interface IDtField extends VertxPojo, Serializable {
                 json.put("field_name",getFieldName());
                 json.put("field_desc",getFieldDesc());
                 json.put("field_type",getFieldType());
-                json.put("field_property",getFieldProperty());
+                json.put("field_property",com.datatable.repository.tables.converters.Converters.COM_DATATABLE_FRAMEWORK_PLUGIN_JOOQ_SHARED_POSTGRES_JSONBTOJSONOBJECTCONVERTER_INSTANCE.rowConverter().to(getFieldProperty()));
                 json.put("is_delete",getIsDelete());
                 json.put("tenant_id",getTenantId());
                 json.put("app_id",getAppId());

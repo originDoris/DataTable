@@ -30,9 +30,9 @@ public class PostgresConfigurationProvider extends AbstractDatabaseConfiguration
     public Configuration createGeneratorConfig(String generatorName, String packageName, Class<? extends VertxGeneratorStrategy> generatorStrategy){
         Jdbc jdbcConfig = new Jdbc();
         jdbcConfig.setDriver("org.postgresql.Driver");
-        jdbcConfig.setUrl("jdbc:postgresql://xxxxxx/data_table");
-        jdbcConfig.setUser("xxxx");
-        jdbcConfig.setPassword("xxxxx");
+        jdbcConfig.setUrl("jdbc:postgresql://127.0.0.1:5432/data_table");
+        jdbcConfig.setUser("postgres");
+        jdbcConfig.setPassword("159357");
         return createGeneratorConfig(generatorName, packageName, generatorStrategy, jdbcConfig, PostgresDatabase.class.getName());
     }
 

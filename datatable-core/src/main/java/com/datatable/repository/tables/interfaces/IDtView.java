@@ -179,7 +179,7 @@ public interface IDtView extends VertxPojo, Serializable {
                 setOrThrow(this::setAppId,json::getLong,"app_id","java.lang.Long");
                 setOrThrow(this::setIsDelete,key -> {Integer i = json.getInteger(key); return i==null?null:i.shortValue();},"is_delete","java.lang.Short");
                 setOrThrow(this::setTemplateId,json::getLong,"template_id","java.lang.Long");
-                setOrThrow(this::setViewConfig,json::getJsonObject,"view_config","io.vertx.core.json.JsonObject");
+                setViewConfig(com.datatable.repository.tables.converters.Converters.COM_DATATABLE_FRAMEWORK_PLUGIN_JOOQ_SHARED_POSTGRES_JSONBTOJSONOBJECTCONVERTER_INSTANCE.rowConverter().from(json.getJsonObject("view_config")));
                 return this;
         }
 
@@ -199,7 +199,7 @@ public interface IDtView extends VertxPojo, Serializable {
                 json.put("app_id",getAppId());
                 json.put("is_delete",getIsDelete());
                 json.put("template_id",getTemplateId());
-                json.put("view_config",getViewConfig());
+                json.put("view_config",com.datatable.repository.tables.converters.Converters.COM_DATATABLE_FRAMEWORK_PLUGIN_JOOQ_SHARED_POSTGRES_JSONBTOJSONOBJECTCONVERTER_INSTANCE.rowConverter().to(getViewConfig()));
                 return json;
         }
 

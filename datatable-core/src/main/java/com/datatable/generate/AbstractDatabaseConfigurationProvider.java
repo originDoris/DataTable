@@ -2,6 +2,8 @@ package com.datatable.generate;
 
 import com.datatable.framework.plugin.jooq.generate.VertxGeneratorStrategy;
 import com.datatable.framework.plugin.jooq.shared.ObjectToJsonObjectBinding;
+import com.datatable.framework.plugin.jooq.shared.postgres.JSONBToJsonObjectBinding;
+import com.datatable.framework.plugin.jooq.shared.postgres.JSONBToJsonObjectConverter;
 import io.vertx.core.json.JsonObject;
 import org.jooq.meta.jaxb.*;
 
@@ -104,12 +106,12 @@ abstract class AbstractDatabaseConfigurationProvider {
          */
         ForcedType objectToJsonObjectBinding = new ForcedType();
         objectToJsonObjectBinding.setUserType(JsonObject.class.getName());
-        objectToJsonObjectBinding.setBinding(ObjectToJsonObjectBinding.class.getName());
+        objectToJsonObjectBinding.setConverter(JSONBToJsonObjectConverter.class.getName());
         objectToJsonObjectBinding.setIncludeExpression("view_config");
 
         ForcedType objectToJsonObjectBinding2 = new ForcedType();
         objectToJsonObjectBinding2.setUserType(JsonObject.class.getName());
-        objectToJsonObjectBinding2.setBinding(ObjectToJsonObjectBinding.class.getName());
+        objectToJsonObjectBinding2.setConverter(JSONBToJsonObjectConverter.class.getName());
         objectToJsonObjectBinding2.setIncludeExpression("field_property");
 
         return Arrays.asList(objectToJsonObjectBinding,objectToJsonObjectBinding2);
